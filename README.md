@@ -58,3 +58,30 @@ In this directory, you should be able to start the camera with the command
 sudo ./start_stream.sh
 ```
 
+## Computer Setup
+There are a few things you may need to do in order to stream the video from the raspberry pi on the network to a virtual video device on your computer. 
+
+First, install v4l2loopback:
+```
+git clone https://github.com/umlaeute/v4l2loopback.git
+cd v4l2loopback 
+make
+sudo make install
+sudo depmod -a
+```
+
+Then create a virtual video device with the command
+```
+sudo modprobe v4l2loopback
+```
+This creates a video device in /dev/video<#> where the number is just one more than the number of video devices that already exist.
+
+### Start the video stream on your computer
+If all goes well, you should be able to start the video capture with the command
+```
+./start_capture.sh
+```
+
+## References:
+Raspberry pi as webcam: https://raspberrytips.com/raspberry-pi-camera-as-webcam/
+RTSP server: https://www.raspberrypi.org/forums/viewtopic.php?t=52071
